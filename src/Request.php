@@ -28,11 +28,13 @@ class Request implements RequestInterface
 	public function withJson($data)
 	{
 		$this->withBody((new Stream(json_encode($data))));
+		return $this;
 	}
 
 	public function withBody(StreamInterface $body)
 	{
 		$this->body = $body;
+		return $this;
 	}
 
 	public function withProtocolVersion($version)
@@ -43,6 +45,7 @@ class Request implements RequestInterface
 	public function withAddedHeader($name, $value)
 	{
 		$this->headers[$name] = $value;
+		return $this;
 	}
 
 	public function withHeader($name, $value)
@@ -66,6 +69,7 @@ class Request implements RequestInterface
 	public function withoutHeader($name)
 	{
 		unset($this->headers[$name]);
+		return $this;
 	}
 
 	public function withRequestTarget($requestTarget)
