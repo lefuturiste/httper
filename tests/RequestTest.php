@@ -64,4 +64,16 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(json_encode(['lel' => 'lel']), $request->getBody()->getContents());
     }
 
+    public function testBasicAuth()
+    {
+//        $client = new \Httper\Client();
+        $request = (new \Httper\Request())
+            ->withMethod('GET')
+            ->withUri(new \Httper\Uri('http://example.com'))
+            ->withBasicAuth("username", "password");
+        $this->assertInternalType("object", $request);
+        $this->assertInternalType("string", $request->getUri()->getHost());
+        $this->assertEquals('Basic ' . base64_encode('username:password'), $request->getHeader('Authorization'));
+    }
+
 }
