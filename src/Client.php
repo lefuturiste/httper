@@ -25,7 +25,7 @@ class Client
 			]
 		];
 		if ($request->getMethod() == "POST" || $request->getMethod() == "PUT") {
-			$opts['http']['content'] = $request->getBody();
+			$opts['http']['content'] = $request->getBody()->getContents();
 		}
 
 		$context = stream_context_create($opts);

@@ -51,14 +51,17 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testJsonEncode()
     {
-        $client = new \Httper\Client();
-        $response = $client->request((new \Httper\Request())
+//        $client = new \Httper\Client();
+        $request = (new \Httper\Request())
             ->withMethod('POST')
             ->withUri(new \Httper\Uri('http://example.com'))
             ->withJson([
                 'lel' => 'lel'
-            ]));
-        $this->assertInternalType("object", $response);
+            ]);
+        $this->assertInternalType("object", $request);
+        $this->assertInternalType("string", $request->getUri()->getHost());
+        $this->assertEquals('application/json', $request->getHeader('Content-Type'));
+        $this->assertEquals(json_encode(['lel' => 'lel']), $request->getBody()->getContents());
     }
 
 }

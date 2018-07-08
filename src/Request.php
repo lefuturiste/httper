@@ -25,19 +25,20 @@ class Request implements RequestInterface
 	 */
 	private $headers = [];
 
-	public function withJson($data)
-	{
-		$this->withBody((new Stream(json_encode($data))));
-		return $this;
-	}
+    public function withJson($data)
+    {
+        $this->withBody((new Stream(json_encode($data))));
+        $this->withHeader('Content-Type', 'application/json');
+        return $this;
+    }
 
-	public function withBody(StreamInterface $body)
+    public function withBody(StreamInterface $body)
 	{
 		$this->body = $body;
 		return $this;
 	}
 
-	public function withProtocolVersion($version)
+    public function withProtocolVersion($version)
 	{
 		// TODO: Implement withProtocolVersion() method.
 	}
