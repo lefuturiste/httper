@@ -134,12 +134,12 @@ class Response implements ResponseInterface
 		return $this->statusLine;
 	}
 
-	public function getParsedBody()
-	{
-		switch ($this->getHeader('Content-Type')){
-			case "application/json":
-				return json_decode($this->getBody()->getContents());
-				break;
-		}
-	}
+    public function getParsedBody($assoc = false)
+    {
+        switch ($this->getHeader('Content-Type')){
+            case "application/json" || "application/problem+json; charset=utf-8" || "application/json; charset=utf-8":
+                return json_decode($this->getBody()->getContents(), $assoc);
+                break;
+        }
+    }
 }
